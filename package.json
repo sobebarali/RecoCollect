@@ -3,12 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/app.ts",
     "dev": "nodemon",
+    "start": "ts-node -r tsconfig-paths/register src/app.ts",
+    "start:prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/app.js",
+    "build": "rimraf ./dist &&  tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky",
+    "clean": "rm -rf dist coverage",
+    "lint": "eslint . --ext .ts",
+    "docker:build": "docker build -t setup .",
+    "docker:run": "docker run -p 1337:1337 setup"
   },
   "keywords": [],
   "author": "",
@@ -16,24 +23,31 @@
   "description": "",
   "dependencies": {
     "-": "^0.0.1",
+    "@prisma/client": "^5.19.1",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "chalk": "^4.1.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "eslint": "^9.10.0",
     "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "morgan": "^1.10.0",
+    "prisma": "^5.19.1",
     "save-dev": "^0.0.1-security",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.5.5",
     "husky": "^9.1.6",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3",
     "tsconfig-paths": "^4.2.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   }
 }
