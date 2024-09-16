@@ -26,4 +26,15 @@ model users {
   bio             String?
   created_at      DateTime          @db.Timestamp(6)
   recommendations recommendations[]
+  collections     collections[]
+}
+
+model collections {
+  id                 Int      @id @default(autoincrement())
+  user_id            Int
+  name               String   @db.VarChar(255)
+  description        String?
+  created_at         DateTime @default(now())
+  recommendation_ids Int[]    @default([])
+  user               users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }

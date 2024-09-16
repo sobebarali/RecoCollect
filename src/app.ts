@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import router from '@src/modules/router';
 import config from '@src/config';
 import Logging from '@src/library/logging';
-import connectDatabase from '@src/database/prisma';
+import {connectDatabase} from '@src/database/prisma';
 
 const app: Application = express();
 const port = config.PORT;
@@ -61,7 +61,7 @@ app.get('/', (res: Response) => {
   res.send('Hello World');
 });
 
-app.use('/api', router);
+app.use('v1/api', router);
 
 // Error Handling Middleware
 app.use((res: Response) => {

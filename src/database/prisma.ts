@@ -3,7 +3,7 @@ import Logging from '@src/library/logging';
 
 const prisma = new PrismaClient();
 
-export default async function connectDatabase() {
+export async function connectDatabase() {
   try {
     await prisma.$connect();
     Logging.info('Successfully connected to the database');
@@ -13,3 +13,5 @@ export default async function connectDatabase() {
     process.exit(1);
   }
 }
+
+export default prisma;
