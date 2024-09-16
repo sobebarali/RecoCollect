@@ -25,7 +25,7 @@ export default async function collectionsGet({
     if (!collection) {
       throw new CustomError(
         'COLLECTION_NOT_FOUND',
-        `Collection not found for user: ${user_id}`,
+        `Collection not found`,
         404,
       );
     }
@@ -38,11 +38,7 @@ export default async function collectionsGet({
       Logging.error(
         `54854087 Error fetching collection ${collection_id} for user: ${user_id}, Error: ${error}`,
       );
-      throw new CustomError(
-        'DB_ERROR',
-        `Error fetching collection ${collection_id} for user: ${user_id}`,
-        500,
-      );
+      throw new CustomError('DB_ERROR', `Error fetching collection`, 500);
     }
   }
 }

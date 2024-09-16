@@ -29,7 +29,7 @@ export default async function collectionsUpdate({
     if (!collection) {
       throw new CustomError(
         'COLLECTION_NOT_FOUND',
-        `Collection not found for user: ${user_id}`,
+        `Collection not found`,
         404,
       );
     }
@@ -48,11 +48,7 @@ export default async function collectionsUpdate({
       Logging.error(
         `68712379 Error updating collection ${collection_id} for user: ${user_id}, Error: ${error}`,
       );
-      throw new CustomError(
-        'DB_ERROR',
-        `Error fetching collection ${collection_id} for user: ${user_id}`,
-        500,
-      );
+      throw new CustomError('DB_ERROR', `Error updating collection`, 500);
     }
   }
 }

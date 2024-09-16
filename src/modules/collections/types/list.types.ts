@@ -19,7 +19,7 @@ export type typeResultData = {
       pictures: string[];
       created_at: number;
       users: any;
-    };
+    }[];
   }[];
   page: string;
   perPage: number;

@@ -38,11 +38,7 @@ export default async function collectionsList({
       Logging.error(
         `68712379 Error fetching collections for user: ${user_id}, Error: ${error}`,
       );
-      throw new CustomError(
-        'DB_ERROR',
-        `Error fetching collections for user: ${user_id}`,
-        500,
-      );
+      throw new CustomError('DB_ERROR', `Error fetching collections`, 500);
     }
   }
 }

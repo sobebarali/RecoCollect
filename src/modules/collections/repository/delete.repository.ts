@@ -25,7 +25,7 @@ export default async function collectionsDelete({
     if (!collection) {
       throw new CustomError(
         'COLLECTION_NOT_FOUND',
-        `Collection not found for user: ${user_id}`,
+        `Collection not found`,
         404,
       );
     }
@@ -33,6 +33,8 @@ export default async function collectionsDelete({
     await prisma.collections.delete({
       where: { id: collection_id },
     });
+
+    return { isDeleted: true };
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;
@@ -40,11 +42,7 @@ export default async function collectionsDelete({
       Logging.error(
         `54536767 Error deleting collection ${collection_id} for user: ${user_id}, Error: ${error}`,
       );
-      throw new CustomError(
-        'DB_ERROR',
-        `Error deleting collection ${collection_id} for user: ${user_id}`,
-        500,
-      );
+      throw new CustomError('DB_ERROR', `Error deleting collection`, 500);
     }
   }
 }

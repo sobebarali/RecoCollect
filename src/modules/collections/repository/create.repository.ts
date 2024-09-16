@@ -20,13 +20,15 @@ export default async function collectionsCreate({
       throw new CustomError('USER_NOT_FOUND', 'User not found', 404);
     }
 
-    await prisma.collections.create({
+    let dbCreateCollectionResult = await prisma.collections.create({
       data: {
         user_id,
         name,
         description,
       },
     });
+
+    return { isCreated: true, dbCreateCollectionResult };
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;
@@ -34,11 +36,7 @@ export default async function collectionsCreate({
       Logging.error(
         `9304976 Error creating collections for user: ${user_id}, Error: ${error}`,
       );
-      throw new CustomError(
-        'DB_ERROR',
-        `Error creating collections for user: ${user_id}`,
-        500,
-      );
+      throw new CustomError('DB_ERROR', `Error creating collections`, 500);
     }
   }
 }
