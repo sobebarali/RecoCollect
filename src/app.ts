@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import router from '@src/modules/router';
 import config from '@src/config';
 import Logging from '@src/library/logging';
-import {connectDatabase} from '@src/database/prisma';
+import { connectDatabase } from '@src/database/prisma';
 
 const app: Application = express();
 const port = config.PORT;
