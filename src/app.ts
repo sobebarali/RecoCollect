@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import router from '@src/modules/router';
 import config from '@src/config';
 import Logging from '@src/library/logging';
+import connectDatabase  from '@src/database/prisma';
 
 const app: Application = express();
 const port = config.PORT;
@@ -74,10 +75,12 @@ app.use((res: Response) => {
 });
 
 // Server Startup
-if (!isTest) {
-  app.listen(port, () => {
-    Logging.info(`Server is running at http://localhost:${port}`);
-  });
-}
+connectDatabase().then(() => {
+  if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+     Logging.info(`Server is running at http://localhost:${port}`);
+    });
+  }
+});
 
 export default app;
