@@ -1,0 +1,39 @@
+{
+  "name": "reckit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register src/app.ts",
+    "dev": "nodemon",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "-": "^0.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.10.0",
+    "express": "^4.21.0",
+    "save-dev": "^0.0.1-security",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}
