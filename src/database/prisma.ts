@@ -13,6 +13,3 @@ export default async function connectDatabase() {
     process.exit(1);
   }
 }
-
-
-
