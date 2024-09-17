@@ -14,7 +14,7 @@ collectionsRouter.post('/collections', endpointCreateCollections);
 collectionsRouter.get('/collections/:collection_id', endpointGetCollections);
 collectionsRouter.put('/collections/:collection_id', endpointUpdateCollections);
 collectionsRouter.put(
-  '/users/:user_id/collections/:collection_id/recommendations',
+  'collections/:collection_id/recommendations',
   endpointAddRecommendationCollections,
 );
 collectionsRouter.put(
@@ -25,6 +25,6 @@ collectionsRouter.delete(
   '/collections/:collection_id',
   endpointDeleteCollections,
 );
-collectionsRouter.get('/users/:user_id/collections', endpointListCollections);
+collectionsRouter.get('collections', endpointListCollections);
 
 export default collectionsRouter;

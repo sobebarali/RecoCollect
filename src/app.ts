@@ -61,7 +61,7 @@ app.get('/', (res: Response) => {
   res.send('Hello World');
 });
 
-app.use('/v1/api', router);
+app.use('/api/v1', router);
 
 // Error Handling Middleware
 app.use((res: Response) => {
