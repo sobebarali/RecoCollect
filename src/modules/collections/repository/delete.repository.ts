@@ -30,6 +30,22 @@ export default async function collectionsDelete({
       );
     }
 
+    if (user_id !== collection.user_id) {
+      throw new CustomError(
+        'FORBIDDEN_ACTION',
+        `You can only delete your own collection`,
+        403,
+      );
+    }
+
+    if (collection.recommendation_ids.length > 0) {
+      throw new CustomError(
+        'COLLECTION_NOT_EMPTY',
+        `Collection is not empty. Please remove all recommendations before deleting the collection.`,
+        400,
+      );
+    }
+
     await prisma.collections.delete({
       where: { id: collection_id },
     });
