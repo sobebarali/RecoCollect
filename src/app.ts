@@ -1,6 +1,6 @@
 import compression from 'compression';
 import cors from 'cors';
-import express, { Application, Response } from 'express';
+import express, { Application, Response, Request, NextFunction } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import router from '@src/modules/router';
@@ -64,7 +64,7 @@ app.get('/', (res: Response) => {
 app.use('/api/v1', router);
 
 // Error Handling Middleware
-app.use((res: Response) => {
+app.use((_req: Request, res: Response, _next: NextFunction) => {
   res.status(404).json({
     data: null,
     error: {
