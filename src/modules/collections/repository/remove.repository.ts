@@ -47,7 +47,7 @@ export default async function removeRecommendation({
     if (user_id !== collection.user_id || user_id !== recommendation.user_id) {
       throw new CustomError(
         'FORBIDDEN_ACTION',
-        `You can only add your own recommendations to your own collections`,
+        `You can only remove your own recommendations to your own collections`,
         403,
       );
     }

@@ -172,7 +172,7 @@ describe('REMOVE RECOMMENDATION TO COLLECTIONS - ERROR', () => {
       error: {
         code: 'FORBIDDEN_ACTION',
         message:
-          'You can only add your own recommendations to your own collections',
+          'You can only remove your own recommendations to your own collections',
         statusCode: 403,
       },
     });
