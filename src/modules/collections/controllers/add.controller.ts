@@ -8,7 +8,6 @@ export default async function endpointAddRecommendationCollections(
   req: Request,
   res: Response,
 ): Promise<any> {
-
   const payload: typePayload = {
     user_id: req.body.user_id,
     collection_id: parseInt(req.params.collection_id),
