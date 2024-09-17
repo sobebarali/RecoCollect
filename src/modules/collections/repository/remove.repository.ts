@@ -52,6 +52,14 @@ export default async function removeRecommendation({
       );
     }
 
+    if (!collection.recommendation_ids.includes(recommendation_id)) {
+      throw new CustomError(
+        'RECOMMENDATION_NOT_FOUND_IN_COLLECTION',
+        `Recommendation is not found in the collection`,
+        400,
+      );
+    }
+
     await prisma.collections.update({
       where: { id: collection_id },
       data: {
