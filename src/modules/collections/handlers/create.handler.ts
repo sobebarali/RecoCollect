@@ -13,7 +13,7 @@ export default async function createCollections({
 }: {
   user_id: number;
   name: string;
-  description: string | undefined
+  description: string | undefined;
 }): Promise<typeResult> {
   let data: null | typeResultData = null;
   let error: null | typeResultError = null;
@@ -26,7 +26,7 @@ export default async function createCollections({
         user_id,
         collection_id: createResult.dbCreateCollectionResult.id,
         name,
-        description: description || "",
+        description: description || '',
       };
     }
   } catch (err: any) {
