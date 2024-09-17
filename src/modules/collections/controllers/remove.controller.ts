@@ -14,8 +14,6 @@ export default async function endpointRemoveRecommendationCollections(
     recommendation_id: parseInt(req.params.recommendation_id),
   };
 
-  console.log('payload:', payload);
-
   let validationResult = runValidation({
     payload,
     schema: addSchema,
