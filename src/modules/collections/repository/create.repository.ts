@@ -9,7 +9,7 @@ export default async function collectionsCreate({
 }: {
   user_id: number;
   name: string;
-  description: string;
+  description: string | undefined
 }) {
   try {
     const user = await prisma.users.findUnique({
@@ -24,7 +24,7 @@ export default async function collectionsCreate({
       data: {
         user_id,
         name,
-        description,
+        description: description ? description : ""
       },
     });
 

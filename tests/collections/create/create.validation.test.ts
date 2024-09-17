@@ -8,7 +8,7 @@ describe('CREATE COLLECTIONS - VALIDATION', () => {
     const name = 'Alice Collection';
     const description = 'Best Action Movies';
 
-    const response = await request(app).post('/v1/api/collections').send({
+    const response = await request(app).post('/api/v1/collections').send({
       user_id,
       name,
       description,
