@@ -159,47 +159,25 @@ CREATE TABLE collections (
    DATABASE_URL=postgresql://username:password@localhost:5432/dbname
    ```
 
-4. **Set up the database**:
-
-   - Create the necessary tables:
-
-     ```sql
-     CREATE TABLE users (
-       id SERIAL PRIMARY KEY,
-       fname VARCHAR(255) NOT NULL,
-       sname VARCHAR(255) NOT NULL,
-       profile_picture VARCHAR(255),
-       bio TEXT,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-     );
-
-     CREATE TABLE recommendations (
-       id SERIAL PRIMARY KEY,
-       user_id INT REFERENCES users(id) ON DELETE CASCADE,
-       title VARCHAR(255) NOT NULL,
-       caption TEXT,
-       category VARCHAR(50) NOT NULL,
-       pictures TEXT[],
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-     );
-
-     CREATE TABLE collections (
-       id SERIAL PRIMARY KEY,
-       user_id INT REFERENCES users(id) ON DELETE CASCADE,
-       name VARCHAR(255) NOT NULL,
-       description TEXT,
-       recommendation_ids INT[] DEFAULT '{}',
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-     );
-     ```
-
-5. **Run migrations** (if using Prisma):
+4. **Prisma Init** (if using Prisma):
 
    ```bash
-   npx prisma migrate dev --name init
+   npx prisma init
    ```
 
-6. **Start the server**:
+5. **Introspect your database**
+
+ ```bash
+   npx prisma db pull
+   ```
+
+6. **Generate Prisma Client**
+
+ ```bash
+  npx prisma generate
+   ```   
+
+7. **Start the server**:
 
    Using npm:
 
