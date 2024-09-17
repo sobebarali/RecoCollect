@@ -25,6 +25,6 @@ collectionsRouter.delete(
   '/collections/:collection_id',
   endpointDeleteCollections,
 );
-collectionsRouter.get('collections', endpointListCollections);
+collectionsRouter.get('/collections', endpointListCollections);
 
 export default collectionsRouter;

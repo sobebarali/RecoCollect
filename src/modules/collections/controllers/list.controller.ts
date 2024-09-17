@@ -9,7 +9,7 @@ export default async function endpointListCollections(
   res: Response,
 ): Promise<any> {
   let payload: typePayload = {
-    user_id: parseInt(req.params.user_id),
+    user_id: parseInt(req.query.page as string),
     page: req.query.page ? parseInt(req.query.page as string) : NaN,
     perPage: req.query.perPage ? parseInt(req.query.perPage as string) : NaN,
   };
