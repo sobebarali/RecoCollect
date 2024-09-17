@@ -9,10 +9,9 @@ describe('ADD RECOMMENDATION TO COLLECTIONS - SUCCESS', () => {
     const recommendation_id = 2;
 
     const response = await request(app)
-      .put(
-        `/v1/api/users/${user_id}/collections/${collection_id}/recommendations`,
-      )
+      .put(`/api/v1/collections/${collection_id}/recommendations`)
       .send({
+        user_id,
         recommendation_id,
       });
 

@@ -9,10 +9,12 @@ export default async function endpointAddRecommendationCollections(
   res: Response,
 ): Promise<any> {
   const payload: typePayload = {
-    user_id: parseInt(req.params.user_id),
+    user_id: req.body.user_id,
     collection_id: parseInt(req.params.collection_id),
     recommendation_id: req.body.recommendation_id,
   };
+
+  console.log('payload', payload);
 
   let validationResult = runValidation({
     payload,
