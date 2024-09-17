@@ -19,7 +19,7 @@ export default async function listCollections({
   let error: null | typeResultError = null;
 
   try {
-   let listResult = await collectionsList({ user_id, page, perPage });
+    let listResult = await collectionsList({ user_id, page, perPage });
 
     if (listResult.isFeteched) {
       data = {

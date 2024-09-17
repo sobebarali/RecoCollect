@@ -22,25 +22,24 @@ export default async function collectionsList({
 
     let collections;
     if (perPage) {
-       const pageNumber = page || 1;
-       const skip = (pageNumber - 1) * perPage;
-       const take = perPage;
+      const pageNumber = page || 1;
+      const skip = (pageNumber - 1) * perPage;
+      const take = perPage;
 
-       collections = await prisma.collections.findMany({
-         where: { user_id: user_id },
-         skip,
-         take,
-       });
-      
+      collections = await prisma.collections.findMany({
+        where: { user_id: user_id },
+        skip,
+        take,
+      });
     } else {
-     collections = await prisma.collections.findMany({
-       where: { user_id: user_id },
-     });
+      collections = await prisma.collections.findMany({
+        where: { user_id: user_id },
+      });
     }
 
     console.log('collections: ', collections);
 
-    return {isFeteched: true, collections};
+    return { isFeteched: true, collections };
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;

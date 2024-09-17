@@ -66,50 +66,55 @@ CREATE TABLE collections (
 ### Base URL: `/v1/api`
 
 ### 1. **Create a Collection**
-   - **Endpoint**: `POST /users/:user_id/collections`
-   - **Description**: Creates a new collection for a user.
-   - **Body**:
-     ```json
-     {
-       "name": "My Collection",
-       "description": "A description of the collection"
-     }
-     ```
+
+- **Endpoint**: `POST /users/:user_id/collections`
+- **Description**: Creates a new collection for a user.
+- **Body**:
+  ```json
+  {
+    "name": "My Collection",
+    "description": "A description of the collection"
+  }
+  ```
 
 ### 2. **Add Recommendation to Collection**
-   - **Endpoint**: `PUT /users/:user_id/collections/:collection_id/recommendations`
-   - **Description**: Adds a recommendation to a specific collection.
-   - **Body**:
-     ```json
-     {
-       "recommendation_id": 1
-     }
-     ```
+
+- **Endpoint**: `PUT /users/:user_id/collections/:collection_id/recommendations`
+- **Description**: Adds a recommendation to a specific collection.
+- **Body**:
+  ```json
+  {
+    "recommendation_id": 1
+  }
+  ```
 
 ### 3. **Remove Recommendation from Collection**
-   - **Endpoint**: `DELETE /users/:user_id/collections/:collection_id/recommendations`
-   - **Description**: Removes a recommendation from a specific collection.
-   - **Body**:
-     ```json
-     {
-       "recommendation_id": 1
-     }
-     ```
+
+- **Endpoint**: `DELETE /users/:user_id/collections/:collection_id/recommendations`
+- **Description**: Removes a recommendation from a specific collection.
+- **Body**:
+  ```json
+  {
+    "recommendation_id": 1
+  }
+  ```
 
 ### 4. **View Collections**
-   - **Endpoint**: `GET /users/:user_id/collections`
-   - **Description**: Retrieves all collections for a user with pagination support.
-   - **Query Params**:
-     - `perPage` (optional): Number of collections per page.
-     - `page` (optional): Page number.
-   - **Example URL**:
-     ```http
-     GET /users/123/collections?perPage=10&page=2
-     ```
+
+- **Endpoint**: `GET /users/:user_id/collections`
+- **Description**: Retrieves all collections for a user with pagination support.
+- **Query Params**:
+  - `perPage` (optional): Number of collections per page.
+  - `page` (optional): Page number.
+- **Example URL**:
+  ```http
+  GET /users/123/collections?perPage=10&page=2
+  ```
 
 ### 5. **Delete Collection**
-   - **Endpoint**: `DELETE /users/:user_id/collections/:collection_id`
-   - **Description**: Deletes a collection.
+
+- **Endpoint**: `DELETE /users/:user_id/collections/:collection_id`
+- **Description**: Deletes a collection.
 
 ---
 
@@ -147,9 +152,9 @@ CREATE TABLE collections (
    ```
 
 3. **Set up environment variables**:
-   
+
    Create a `.env` file at the root of your project and add the following variables:
-   
+
    ```bash
    DATABASE_URL=postgresql://username:password@localhost:5432/dbname
    ```
@@ -215,6 +220,7 @@ CREATE TABLE collections (
 To test the API using tools like Postman, Insomnia, or a testing library like Jest:
 
 1. **Unit Tests**:
+
    - Use Jest or any other testing framework of your choice.
    - You can define API request tests with a mock server and Prisma test client.
 

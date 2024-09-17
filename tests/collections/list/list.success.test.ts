@@ -8,10 +8,10 @@ describe('LIST COLLECTIONS - SUCCESS', () => {
     // const page = 1;
     // const perPage = 10;
 
-    const response = await request(app)
-      .get(`/v1/api/users/${user_id}/collections`)
-      // .query({ page, perPage });
-
+    const response = await request(app).get(
+      `/v1/api/users/${user_id}/collections`,
+    );
+    // .query({ page, perPage });
 
     console.log(`response.body`, response.body);
 
