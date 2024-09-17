@@ -44,10 +44,10 @@ export default async function addRecommendation({
       );
     }
 
-    if (recommendation.user_id !== collection.user_id) {
+    if (user_id !== collection.user_id || user_id !== recommendation.user_id) {
       throw new CustomError(
         'FORBIDDEN_ACTION',
-        `You cannot add a recommendation that is not yours`,
+        `You can only add your own recommendations to your own collections`,
         403,
       );
     }
