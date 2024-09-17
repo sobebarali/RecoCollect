@@ -11,8 +11,6 @@ This project implements a backend system that allows users to create and manage 
 - Delete a collection.
 - Error handling for invalid scenarios.
 
----
-
 ## Database Schema Modifications
 
 ### Existing Schema:
@@ -59,64 +57,68 @@ CREATE TABLE collections (
 
 - `collections` table holds collections for users with an array of recommendation IDs.
 
----
-
 ## API Documentation
 
-### Base URL: `/v1/api`
+### Base URL: `/api/v1`
 
-### 1. **Create a Collection**
+### 1. Create Collection
 
-- **Endpoint**: `POST /users/:user_id/collections`
+- **Method**: POST
+- **Endpoint**: `/collections`
 - **Description**: Creates a new collection for a user.
-- **Body**:
+- **Request Body**:
   ```json
   {
     "name": "My Collection",
-    "description": "A description of the collection"
+    "description": "A description of the collection",
+    "user_id": 1
   }
   ```
 
-### 2. **Add Recommendation to Collection**
+### 2. Add Recommendation to Collection
 
-- **Endpoint**: `PUT /users/:user_id/collections/:collection_id/recommendations`
+- **Method**: POST
+- **Endpoint**: `/collections/{collectionId}/recommendations`
 - **Description**: Adds a recommendation to a specific collection.
-- **Body**:
+- **Request Body**:
   ```json
   {
     "recommendation_id": 1
   }
   ```
 
-### 3. **Remove Recommendation from Collection**
+### 3. Remove Recommendation from Collection
 
-- **Endpoint**: `DELETE /users/:user_id/collections/:collection_id/recommendations`
+- **Method**: DELETE
+- **Endpoint**: `/collections/{collectionId}/recommendations/{recommendationId}`
 - **Description**: Removes a recommendation from a specific collection.
-- **Body**:
-  ```json
-  {
-    "recommendation_id": 1
-  }
-  ```
 
-### 4. **View Collections**
+### 4. View Collections
 
-- **Endpoint**: `GET /users/:user_id/collections`
+- **Method**: GET
+- **Endpoint**: `/collections`
 - **Description**: Retrieves all collections for a user with pagination support.
-- **Query Params**:
-  - `perPage` (optional): Number of collections per page.
-  - `page` (optional): Page number.
+- **Query Parameters**:
+  - `user_id` (required): ID of the user
+  - `page` (optional): Page number (default: 1)
+  - `limit` (optional): Number of collections per page (default: 10)
 - **Example URL**:
-  ```http
-  GET /users/123/collections?perPage=10&page=2
+  ```
+  GET /api/v1/collections?user_id=123&page=2&limit=10
   ```
 
-### 5. **Delete Collection**
+### 5. Delete Collection
 
-- **Endpoint**: `DELETE /users/:user_id/collections/:collection_id`
+- **Method**: DELETE
+- **Endpoint**: `/collections/{collectionId}`
 - **Description**: Deletes a collection.
 
----
+## Error Handling
+
+- 400 Bad Request: Missing or invalid parameters
+- 403 Forbidden: User doesn't have permission to perform the action
+- 404 Not Found: Resource not found
+- 500 Internal Server Error: Unexpected server error
 
 ## Project Setup
 
@@ -167,15 +169,15 @@ CREATE TABLE collections (
 
 5. **Introspect your database**
 
-```bash
-  npx prisma db pull
-```
+   ```bash
+   npx prisma db pull
+   ```
 
 6. **Generate Prisma Client**
 
-```bash
- npx prisma generate
-```
+   ```bash
+   npx prisma generate
+   ```
 
 7. **Start the server**:
 
@@ -191,8 +193,6 @@ CREATE TABLE collections (
    yarn dev
    ```
 
----
-
 ## Running Tests
 
 To test the API using tools like Postman, Insomnia, or a testing library like Jest:
@@ -205,29 +205,21 @@ To test the API using tools like Postman, Insomnia, or a testing library like Je
 2. **Manual Testing with Postman**:
    - Set up requests according to the API documentation.
    - For example:
-     - `GET /v1/api/users/:user_id/collections` with pagination parameters.
+     - `GET /api/v1/collections?user_id=1&page=1&limit=10` to view collections with pagination.
 
 ### Example Test Request
 
 **Create Collection Example**:
 
 ```http
-POST /v1/api/users/1/collections
+POST /api/v1/collections
 Content-Type: application/json
 
 {
   "name": "Favorites",
-  "description": "My favorite movies"
+  "description": "My favorite movies",
+  "user_id": 1
 }
 ```
 
----
-
-## Error Handling Scenarios
-
-1. **Invalid User**: If a user doesn’t exist, a `404` response is returned.
-2. **Invalid Recommendation**: Adding/removing a recommendation that doesn’t belong to the user will return a `403` response.
-3. **Missing Fields**: Requests with missing required fields will return a `400` response.
-4. **Other Errors**: A `500` response is returned for internal server errors.
-
----
+This README now incorporates the updated API structure with RESTful conventions while maintaining the original project setup, database schema, and testing information. The API documentation section has been significantly revised to reflect the new endpoint structure and naming conventions.
