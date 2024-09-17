@@ -4,7 +4,7 @@ import { expect, describe, test } from '@jest/globals';
 
 describe('CREATE COLLECTIONS - VALIDATION', () => {
   test('should fail to create a collections as name is missing', async () => {
-    const user_id = 1; 
+    const user_id = 1;
     const name = '';
     const description = 'Best Action Movies';
 
