@@ -41,22 +41,31 @@ export default async function collectionsList({
       }
      */
 
-    const collectionsWithRecommendations = await Promise.all(
-      collections.map(async (collection) => {
-        const recommendations = await prisma.recommendations.findMany({
-          where: {
-            id: {
-              in: collection.recommendation_ids,
-            },
-          },
-        });
-
-        return {
-          ...collection,
-          recommendations,
-        };
-      }),
+    // Extract all recommendation IDs from collections
+    const allRecommendationIds = collections.flatMap(
+      (collection) => collection.recommendation_ids || [],
     );
+
+    // Fetch recommendations for all collected recommendation_ids in a single query
+    const recommendations = await prisma.recommendations.findMany({
+      where: {
+        id: {
+          in: allRecommendationIds,
+        },
+      },
+    });
+
+    // Map recommendations to the corresponding collections
+    const collectionsWithRecommendations = collections.map((collection) => {
+      const collectionRecommendations = recommendations.filter(
+        (recommendation) =>
+          collection.recommendation_ids.includes(recommendation.id),
+      );
+      return {
+        ...collection,
+        recommendations: collectionRecommendations,
+      };
+    });
 
     return { isFeteched: true, collectionsWithRecommendations };
   } catch (error) {
