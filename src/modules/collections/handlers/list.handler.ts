@@ -12,8 +12,8 @@ export default async function listCollections({
   perPage,
 }: {
   user_id: number;
-  page: number | undefined;
-  perPage: number | undefined;
+  page: number;
+  perPage: number;
 }): Promise<typeResult> {
   let data: null | typeResultData = null;
   let error: null | typeResultError = null;
@@ -23,15 +23,25 @@ export default async function listCollections({
 
     if (listResult.isFeteched) {
       data = {
-        collections: listResult.collections.map((collection: any) => ({
-          user_id: collection.user_id,
-          collection_id: collection.id,
-          name: collection.name,
-          description: collection.description,
-          created_at: collection.created_at,
-        })),
+        collections: listResult.collectionsWithRecommendations.map(
+          (collection: any) => ({
+            user_id: collection.user_id,
+            collection_id: collection.id,
+            name: collection.name,
+            description: collection.description,
+            created_at: collection.created_at,
+            recommendations: collection.recommendations.map((rec: any) => ({
+              recommendation_id: rec.id,
+              user_id: rec.user_id,
+              title: rec.title,
+              caption: rec.caption,
+              pictures: rec.pictures,
+              created_at: rec.created_at.getTime(),
+            })),
+          }),
+        ),
         page: page || 1,
-        perPage: perPage || listResult.collections.length,
+        perPage: perPage || listResult.collectionsWithRecommendations.length,
       };
     }
   } catch (err: any) {

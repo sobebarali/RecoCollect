@@ -8,8 +8,8 @@ export default async function collectionsList({
   perPage,
 }: {
   user_id: number;
-  page: number | undefined;
-  perPage: number | undefined;
+  page: number;
+  perPage: number;
 }) {
   try {
     const user = await prisma.users.findUnique({
@@ -20,26 +20,45 @@ export default async function collectionsList({
       throw new CustomError('USER_NOT_FOUND', 'User not found', 404);
     }
 
-    let collections;
-    if (perPage) {
-      const pageNumber = page || 1;
-      const skip = (pageNumber - 1) * perPage;
-      const take = perPage;
+    const pageNumber = page || 1;
+    const skip = (pageNumber - 1) * perPage;
+    const take = perPage;
 
-      collections = await prisma.collections.findMany({
-        where: { user_id: user_id },
-        skip,
-        take,
-      });
-    } else {
-      collections = await prisma.collections.findMany({
-        where: { user_id: user_id },
-      });
-    }
+    let collections = await prisma.collections.findMany({
+      where: { user_id: user_id },
+      skip,
+      take,
+    });
 
-    console.log('collections: ', collections);
+    /**
+     * {
+        id: 1,
+        user_id: 1,
+        name: 'Alice Collection',
+        description: 'Best Action Movies',
+        created_at: 2024-09-16T11:32:48.244Z,
+        recommendation_ids: []
+      }
+     */
 
-    return { isFeteched: true, collections };
+    const collectionsWithRecommendations = await Promise.all(
+      collections.map(async (collection) => {
+        const recommendations = await prisma.recommendations.findMany({
+          where: {
+            id: {
+              in: collection.recommendation_ids,
+            },
+          },
+        });
+
+        return {
+          ...collection,
+          recommendations,
+        };
+      }),
+    );
+
+    return { isFeteched: true, collectionsWithRecommendations };
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;

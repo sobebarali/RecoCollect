@@ -11,14 +11,14 @@ export type typeResultData = {
     name: string;
     description: string;
     created_at: number;
-    // recommendations: {
-    //   recommendation_id: number;
-    //   user_id: number;
-    //   title: string;
-    //   caption: string;
-    //   pictures: string[];
-    //   created_at: number;
-    // }[];
+    recommendations: {
+      recommendation_id: number;
+      user_id: number;
+      title: string;
+      caption: string;
+      pictures: string[];
+      created_at: number;
+    }[];
   }[];
   page: number;
   perPage: number;
