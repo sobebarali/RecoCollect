@@ -14,7 +14,7 @@ collectionsRouter.post('/collections', endpointCreateCollections);
 collectionsRouter.get('/collections/:collection_id', endpointGetCollections);
 collectionsRouter.put('/collections/:collection_id', endpointUpdateCollections);
 collectionsRouter.put(
-  'collections/:collection_id/recommendations',
+  '/collections/:collection_id/recommendations',
   endpointAddRecommendationCollections,
 );
 collectionsRouter.put(
