@@ -19,7 +19,7 @@ export default async function listCollections({
   let error: null | typeResultError = null;
 
   try {
-    let listResult = await collectionsList({ user_id, page, perPage });
+    const listResult = await collectionsList({ user_id, page, perPage });
 
     if (listResult.isFeteched) {
       data = {
@@ -29,16 +29,6 @@ export default async function listCollections({
           name: collection.name,
           description: collection.description,
           created_at: collection.created_at,
-          recommendations:
-            collection.recommendations.map((recommendation: any) => ({
-              recommendation_id: recommendation.id,
-              user_id: recommendation.user_id,
-              title: recommendation.title,
-              caption: recommendation.caption,
-              pictures: recommendation.pictures || [],
-              created_at: recommendation.created_at,
-              users: recommendation.users || {},
-            })) || [],
         })),
         page: page || 1,
         perPage: perPage || listResult.collections.length,

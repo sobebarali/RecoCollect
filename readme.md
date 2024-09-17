@@ -167,15 +167,15 @@ CREATE TABLE collections (
 
 5. **Introspect your database**
 
- ```bash
-   npx prisma db pull
-   ```
+```bash
+  npx prisma db pull
+```
 
 6. **Generate Prisma Client**
 
- ```bash
-  npx prisma generate
-   ```   
+```bash
+ npx prisma generate
+```
 
 7. **Start the server**:
 
