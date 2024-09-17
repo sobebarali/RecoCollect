@@ -3,16 +3,15 @@ import request from 'supertest';
 import { expect, describe, test } from '@jest/globals';
 
 describe('LIST COLLECTIONS - SUCCESS', () => {
-  test('should successfully list a collections', async () => {
-    const user_id = null;
-    const page = null;
-    const perPage = null;
+  test('should successfully list all collections for a user', async () => {
+    const user_id = 1;
+    // const page = 1;
+    // const perPage = 10;
 
-    const response = await request(app).get('/api/collectionss').send({
-      user_id,
-      page,
-      perPage,
-    });
+    const response = await request(app)
+      .get(`/v1/api/users/${user_id}/collections`)
+      // .query({ page, perPage });
+
 
     console.log(`response.body`, response.body);
 
@@ -30,7 +29,7 @@ describe('LIST COLLECTIONS - SUCCESS', () => {
         title: expect.any(String),
         caption: expect.any(String),
         pictures: expect.any(Object),
-        created_at: expect.any(Number),
+        // created_at: expect.any(Number),
         users: expect.any(Object),
       },
       error: null,

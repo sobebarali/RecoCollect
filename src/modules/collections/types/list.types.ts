@@ -1,6 +1,6 @@
 export type typePayload = {
   user_id: number;
-  page: string;
+  page: number;
   perPage: number;
 };
 
@@ -21,7 +21,7 @@ export type typeResultData = {
       users: any;
     }[];
   }[];
-  page: string;
+  page: number;
   perPage: number;
 };
 

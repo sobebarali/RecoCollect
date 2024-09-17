@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "clean": "rm -rf dist coverage",
-    "lint": "eslint . --ext .ts" 
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",

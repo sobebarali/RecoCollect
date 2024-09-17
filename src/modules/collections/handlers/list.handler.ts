@@ -12,15 +12,38 @@ export default async function listCollections({
   perPage,
 }: {
   user_id: number;
-  page: string;
-  perPage: number;
+  page: number | undefined;
+  perPage: number | undefined;
 }): Promise<typeResult> {
   let data: null | typeResultData = null;
   let error: null | typeResultError = null;
 
   try {
-    // Perform the list operation using the repository function
-    await collectionsList({ user_id, page, perPage });
+   let listResult = await collectionsList({ user_id, page, perPage });
+
+    if (listResult.isFeteched) {
+      data = {
+        collections: listResult.collections.map((collection: any) => ({
+          user_id: collection.user_id,
+          collection_id: collection.id,
+          name: collection.name,
+          description: collection.description,
+          created_at: collection.created_at,
+          recommendations:
+            collection.recommendations.map((recommendation: any) => ({
+              recommendation_id: recommendation.id,
+              user_id: recommendation.user_id,
+              title: recommendation.title,
+              caption: recommendation.caption,
+              pictures: recommendation.pictures || [],
+              created_at: recommendation.created_at,
+              users: recommendation.users || {},
+            })) || [],
+        })),
+        page: page || 1,
+        perPage: perPage || listResult.collections.length,
+      };
+    }
   } catch (err: any) {
     Logging.error(`[COLLECTIONS] LIST Error: ${err} for user_id: ${user_id}`);
     error = {

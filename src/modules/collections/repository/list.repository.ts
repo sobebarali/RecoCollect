@@ -8,8 +8,8 @@ export default async function collectionsList({
   perPage,
 }: {
   user_id: number;
-  page: string;
-  perPage: number;
+  page: number | undefined;
+  perPage: number | undefined;
 }) {
   try {
     const user = await prisma.users.findUnique({
@@ -20,17 +20,27 @@ export default async function collectionsList({
       throw new CustomError('USER_NOT_FOUND', 'User not found', 404);
     }
 
-    const pageNumber = parseInt(page, 10) || 1;
-    const skip = (pageNumber - 1) * perPage;
-    const take = perPage;
+    let collections;
+    if (perPage) {
+       const pageNumber = page || 1;
+       const skip = (pageNumber - 1) * perPage;
+       const take = perPage;
 
-    const collections = await prisma.collections.findMany({
-      where: { id: user_id },
-      skip,
-      take,
-    });
+       collections = await prisma.collections.findMany({
+         where: { user_id: user_id },
+         skip,
+         take,
+       });
+      
+    } else {
+     collections = await prisma.collections.findMany({
+       where: { user_id: user_id },
+     });
+    }
 
-    return collections;
+    console.log('collections: ', collections);
+
+    return {isFeteched: true, collections};
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;
