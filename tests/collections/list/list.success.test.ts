@@ -29,7 +29,7 @@ describe('LIST COLLECTIONS - SUCCESS', () => {
 
   test('should successfully list all collections for a user with pagination', async () => {
     const user_id = 1;
-    const page = 2;
+    const page = 1;
     const perPage = 10;
 
     const response = await request(app)

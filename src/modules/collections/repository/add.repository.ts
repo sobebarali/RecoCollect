@@ -52,6 +52,14 @@ export default async function addRecommendation({
       );
     }
 
+    if (collection.recommendation_ids.includes(recommendation_id)) {
+      throw new CustomError(
+        'RECOMMENDATION_ALREADY_PRESENT',
+        `Recommendation is already added to the collection`,
+        400,
+      );
+    }
+
     await prisma.collections.update({
       where: { id: collection_id },
       data: {
