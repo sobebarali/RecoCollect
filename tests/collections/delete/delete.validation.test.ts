@@ -7,9 +7,9 @@ describe('DELETE COLLECTIONS - VALIDATION', () => {
     const user_id = undefined;
     const collection_id = undefined;
 
-   const deleteCollection = await request(app)
-     .delete(`/api/v1/collections/${collection_id}`)
-     .send({ user_id });
+    const deleteCollection = await request(app)
+      .delete(`/api/v1/collections/${collection_id}`)
+      .send({ user_id });
 
     console.log(`response.body`, deleteCollection.body);
 

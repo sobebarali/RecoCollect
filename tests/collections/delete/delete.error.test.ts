@@ -87,13 +87,13 @@ describe('DELETE COLLECTIONS - ERROR', () => {
 
     expect(createCollection.status).toBe(200);
 
-   const collection_id = createCollection.body.data.collection_id;
+    const collection_id = createCollection.body.data.collection_id;
 
     const deleteCollection = await request(app)
       .delete(`/api/v1/collections/${collection_id}`)
       .send({ user_id: 7 }); // <-- collection createded by user 1, but user 7 is trying to delete it
 
-    console.log('respose: ', deleteCollection.body);  
+    console.log('respose: ', deleteCollection.body);
     expect(deleteCollection.status).toBe(403);
 
     expect(deleteCollection.body).toEqual({
@@ -105,7 +105,6 @@ describe('DELETE COLLECTIONS - ERROR', () => {
       },
     });
   });
-
 
   test('should fail to delete a collection as it contains recommendation', async () => {
     const user_id = 1;
@@ -130,7 +129,7 @@ describe('DELETE COLLECTIONS - ERROR', () => {
       .put(`/api/v1/collections/${collection_id}/recommendations`)
       .send({
         user_id,
-        recommendation_id
+        recommendation_id,
       });
 
     expect(addRecommendationToCollection.status).toBe(200);
