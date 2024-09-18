@@ -1,4 +1,4 @@
-# Collections API - Node.js, Express, PostgreSQL
+# RecoCollect - Node.js, Express, PostgreSQL, TDD
 
 This project implements a backend system that allows users to create and manage collections of their recommendations (such as movies, TV shows, places, songs, etc.). Users can add and remove recommendations from collections and view their collections with pagination support.
 
