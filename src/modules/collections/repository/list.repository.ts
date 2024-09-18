@@ -30,32 +30,23 @@ export default async function collectionsList({
       take,
     });
 
-    /**
-     * {
-        id: 1,
-        user_id: 1,
-        name: 'Alice Collection',
-        description: 'Best Action Movies',
-        created_at: 2024-09-16T11:32:48.244Z,
-        recommendation_ids: []
-      }
-     */
+    // if (!collections.length) {
+    //   return { isFetched: true, collections: [] };
+    // }
 
-    // Extract all recommendation IDs from collections
     const allRecommendationIds = collections.flatMap(
       (collection) => collection.recommendation_ids || [],
     );
 
-    // Fetch recommendations for all collected recommendation_ids in a single query
     const recommendations = await prisma.recommendations.findMany({
       where: {
         id: {
           in: allRecommendationIds,
         },
+        user_id: user_id,
       },
     });
 
-    // Map recommendations to the corresponding collections
     const collectionsWithRecommendations = collections.map((collection) => {
       const collectionRecommendations = recommendations.filter(
         (recommendation) =>
